@@ -5,6 +5,7 @@ const errorMessage = document.querySelector("#error-message");
 const results = document.querySelector("#results");
 const wordTitle = document.querySelector("#word-title");
 const pronunciation = document.querySelector("#pronunciation");
+const audio = document.querySelector("#pronunciation-audio")
 const partOfSpeech = document.querySelector("#part-of-speech");
 const definition = document.querySelector("#definition");
 const example = document.querySelector("#example");
@@ -28,6 +29,7 @@ form.addEventListener("submit", function(e){
     definition.textContent = "";
     example.textContent = "";
     synonyms.textContent = "";
+    results.style.display = "none";
 
     //fetch data from the API
     fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + word)
@@ -43,15 +45,28 @@ form.addEventListener("submit", function(e){
         console.log("Data received: ", data);
         console.log("First item: ", data[0]);
         console.log("Word: ", data[0].word);
+
         //Display word title
         wordTitle.textContent = data[0].word;
         console.log("wordTitle element: ", wordTitle);
-        //Display pronunciation if it exists
-        if (data[0].phonetics[1] && data[0].phonetics[1].text){
-            pronunciation.textContent = "Pronunciation: " + data[0].phonetics[1].text
+
+        //Display audio pronunciation if it exists
+        const phoneticsWithAudio = data[0].phonetics.find(p => p.audio);
+        if (phoneticsWithAudio) {
+            audio.src = phoneticsWithAudio.audio
+            audio.style.display = "block";
+        }else{
+            audio.style.display = "none";
+        }
+
+        //Display text pronunciation if it exists
+        const phoneticsWithText = data[0].phonetics.find(p => p.text);
+        if (phoneticsWithText){
+            pronunciation.textContent = "Pronunciation: " + phoneticsWithText.text
         }else{
             pronunciation.textContent = "Pronunciation: not available"
         }
+
 
         //Display first meaning
         const firstMeaning = data[0].meanings[0];
