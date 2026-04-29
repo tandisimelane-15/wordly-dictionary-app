@@ -42,9 +42,6 @@ form.addEventListener("submit", function(e){
         
     })
     .then(function(data){
-        console.log("Data received: ", data);
-        console.log("First item: ", data[0]);
-        console.log("Word: ", data[0].word);
 
         //Display word title
         wordTitle.textContent = data[0].word;
@@ -89,7 +86,6 @@ form.addEventListener("submit", function(e){
 
         //show results
         results.style.display = "block";
-        console.log("Results display: ", results.style.display);
     })
     .catch(function(error){
     errorMessage.innerHTML = "Word not found. Please check your spelling or <a href='https://www.google.com/search?q=" + wordInput.value.trim() + "+definition' target='_blank'>try the web</a>.";    });
