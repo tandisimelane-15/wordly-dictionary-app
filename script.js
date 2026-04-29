@@ -12,10 +12,8 @@ const synonyms = document.querySelector("#synonyms");
 
 form.addEventListener("submit", function(e){
     e.preventDefault();
-    console.log("Form submitted");
     //get the word the user typed
     const word = wordInput.value.trim();
-    console.log("Word typed: " + word);
     //check if user input is empty
     if (word === "") {
         errorMessage.textContent = "Please enter a word!"
@@ -34,8 +32,12 @@ form.addEventListener("submit", function(e){
     //fetch data from the API
     fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + word)
     .then(function(response) {
-        console.log("Response received: ", response);
-        return response.json();
+        if(response.ok){
+            return response.json();
+        }else{
+            throw new Error("Word not found");
+        }
+        
     })
     .then(function(data){
         console.log("Data received: ", data);
@@ -75,7 +77,6 @@ form.addEventListener("submit", function(e){
         console.log("Results display: ", results.style.display);
     })
     .catch(function(error){
-        errorMessage.textContent = "Something went wrong.Please try again.";
-    });
+    errorMessage.innerHTML = "Word not found. Please check your spelling or <a href='https://www.google.com/search?q=" + wordInput.value.trim() + "+definition' target='_blank'>try the web</a>.";    });
 })
 })
