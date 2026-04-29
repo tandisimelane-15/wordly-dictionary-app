@@ -1,0 +1,26 @@
+/* ===== VARIABLES ===== */
+:root {
+    --bg: #f9f9f9;
+    --white: #ffffff;
+    --text: #333333;
+    --muted: #888888;
+    --accent: #4a90e2;
+    --border: #e0e0e0;
+    --radius: 8px;
+}
+
+/* ===== BASE ===== */
+* {
+    box-sizing: border-box;
+    margin:0;
+    padding:0
+}
+
+/* ===== BODY ===== */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI' , sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
