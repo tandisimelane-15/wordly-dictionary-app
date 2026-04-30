@@ -11,7 +11,7 @@ Wordly is a Single Page Application (SPA) that allows users to search for any En
 - Error handling for empty input and invalid words
 - No page reload on search
 
-## How to Run
+## How to run the Project
 1. Clone the Repository
 2. Open the Project folder
 3. Open `index.html` in your browser
