@@ -1,6 +1,6 @@
 /* ===== VARIABLES ===== */
 :root {
-    --bg: #f9f9f9;
+    --bg: #f0f4ff;
     --white: #ffffff;
     --text: #333333;
     --muted: #888888;
@@ -27,7 +27,8 @@ body {
 
 /* ===== HEADER ===== */
 header {
-    background-color: var(--white);
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    background-color: var(--accent);
     border-bottom: 1px solid var(--border);
     padding: 2rem;
     text-align: center;
@@ -36,13 +37,15 @@ header {
 header h1{
     font-family: Georgia, serif;
     font-size: 2.5rem;
-    color: var(--accent);
+    color: var(--white);
     margin-bottom: 0.3rem;
 }
 
 header p{
-    font-size: 0.9rem;
-    color: var(--muted);
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--white);
 }
 
 /* ===== MAIN ===== */
@@ -96,7 +99,8 @@ button:hover {
 /* ===== ERROR MESSAGE ===== */
 #error-message {
     color: #e74c3c;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
     margin-bottom: 1rem;
 }
 
@@ -140,13 +144,13 @@ button:hover {
 }
 
 /* ===== MEANINGS ===== */
-.meaning.block {
+.meaning-block {
     margin-bottom: 1.5rem;
     border-bottom: 1px solid var(--border);
     padding-bottom: 1rem;
 }
 
-.meaning.block:last-child {
+.meaning-block:last-child {
     border-bottom: none;
 }
 /* ===== PART-OF-SPEECH ===== */
@@ -154,7 +158,7 @@ button:hover {
     display: inline-block;
     background-color: var(--accent);
     color: var(--white);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     padding: 0.2rem 0.8rem;
     border-radius: 999px;
     margin-bottom: 1rem;
@@ -163,7 +167,7 @@ button:hover {
 
 /* ===== DEFINITION ===== */
 .definition {
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--text);
     margin-bottom: 0.8rem;
     line-height: 1.7;
