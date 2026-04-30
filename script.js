@@ -6,10 +6,8 @@ const results = document.querySelector("#results");
 const wordTitle = document.querySelector("#word-title");
 const pronunciation = document.querySelector("#pronunciation");
 const audio = document.querySelector("#pronunciation-audio")
-const partOfSpeech = document.querySelector("#part-of-speech");
-const definition = document.querySelector("#definition");
-const example = document.querySelector("#example");
-const synonyms = document.querySelector("#synonyms");
+const meaningsContainer = document.querySelector("#meanings-container");
+
 
 form.addEventListener("submit", function(e){
     e.preventDefault();
@@ -22,13 +20,7 @@ form.addEventListener("submit", function(e){
     }
 
     //clear previous results and errors
-    errorMessage.textContent = "";
-    wordTitle.textContent = "";
-    pronunciation.textContent = "";
-    partOfSpeech.textContent = "";
-    definition.textContent = "";
-    example.textContent = "";
-    synonyms.textContent = "";
+    meaningsContainer.innerHTML = "";
     results.style.display = "none";
 
     //fetch data from the API
@@ -45,7 +37,6 @@ form.addEventListener("submit", function(e){
 
         //Display word title
         wordTitle.textContent = data[0].word;
-        console.log("wordTitle element: ", wordTitle);
 
         //Display audio pronunciation if it exists
         const phoneticsWithAudio = data[0].phonetics.find(p => p.audio);
@@ -65,29 +56,41 @@ form.addEventListener("submit", function(e){
         }
 
 
-        //Display first meaning
-        const firstMeaning = data[0].meanings[0];
-        partOfSpeech.textContent = firstMeaning.partOfSpeech
-        definition.textContent = firstMeaning.definitions[0].definition;
 
-        //Display example if it exists
-        if (firstMeaning.definitions[0].example){
-            example.textContent = "Example: " + firstMeaning.definitions[0].example
-        }else{
-            example.textContent = "Example: not available"
-        }
+        //loop through all meanings
+        data[0].meanings.forEach(function(meaning){
+            const meaningBlock = document.createElement("div")
+            meaningBlock.classList.add("meaning-block");
+
+            // Get example
+            const exampleText = meaning.definitions[0].example
+                ? "Example: " + meaning.definitions[0].example
+            : "Example: not available"
+
+            //Get synonyms
+            const synonymList = meaning.synonyms.length > 0
+                ? meaning.synonyms
+                : meaning.definitions[0].synonyms
+
+            const synonymText = synonymList && synonymList.length > 0
+                ? "Synonyms: " + synonymList.join(", ")
+                : "No Synonyms available";
+
+            meaningBlock.innerHTML = `
+            <h3 class="part-of-speech">${meaning.partOfSpeech}</h3>
+            <p class="definition">${meaning.definitions[0].definition}</p>
+            <p class="example">${exampleText}</p>
+            <p class="synonyms">${synonymText}</p>
+            `;
+
+            meaningsContainer.appendChild(meaningBlock);
+        });
         
-        //Display synonyms if they exist
-        if (firstMeaning.synonyms.length>0){
-            synonyms.textContent = firstMeaning.synonyms.join(", ");
-        }else{
-            synonyms.textContent = "No synonyms available"
-        }
 
         //show results
         results.style.display = "block";
     })
-    .catch(function(error){
+    .catch(function(){
     errorMessage.innerHTML = "Word not found. Please check your spelling or <a href='https://www.google.com/search?q=" + wordInput.value.trim() + "+definition' target='_blank'>try the web</a>.";    });
-})
-})
+});
+});
