@@ -9,6 +9,7 @@ Wordly is a Single Page Application (SPA) that allows users to search for any En
 - Shows phonetic pronunciation text and audio
 - Displays synonyms where available
 - Error handling for empty input and invalid words
+- No page reload on search
 
 ## How to Run
 1. Clone the Repository
@@ -25,6 +26,7 @@ Wordly is a Single Page Application (SPA) that allows users to search for any En
 ## Future Implementations
 - Add search history
 - Add word of the day feature
+- Improve UI styling
 
 ## How to contribute
 - Pull requests are welcome. For major changes please open an issue first.
