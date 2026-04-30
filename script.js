@@ -20,6 +20,7 @@ form.addEventListener("submit", function(e){
     }
 
     //clear previous results and errors
+    errorMessage.textContent = "";
     meaningsContainer.innerHTML = "";
     results.style.display = "none";
 
