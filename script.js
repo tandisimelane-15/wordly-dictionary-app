@@ -94,8 +94,6 @@ form.addEventListener("submit", function(e){
         });
         
 
-        //show results
-        results.style.display = "block";
     })
     .catch(function(){
         spinner.style.display = "none"; //hide spinner
