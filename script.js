@@ -7,7 +7,7 @@ const wordTitle = document.querySelector("#word-title");
 const pronunciation = document.querySelector("#pronunciation");
 const audio = document.querySelector("#pronunciation-audio")
 const meaningsContainer = document.querySelector("#meanings-container");
-
+const spinner = document.querySelector("#spinner");
 
 form.addEventListener("submit", function(e){
     e.preventDefault();
@@ -16,13 +16,19 @@ form.addEventListener("submit", function(e){
     //check if user input is empty
     if (word === "") {
         errorMessage.textContent = "Please enter a word!"
+        results.style.display = "none";
         return;
     }
 
     //clear previous results and errors
     errorMessage.textContent = "";
     meaningsContainer.innerHTML = "";
-    results.style.display = "none";
+    wordTitle.textContent = "";
+    pronunciation.textContent = "";
+    audio.style.display = "none";
+    audio.src = "";
+    results.style.display = "block"; //show results
+    spinner.style.display = "block"; //show spinner
 
     //fetch data from the API
     fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + word)
@@ -35,7 +41,7 @@ form.addEventListener("submit", function(e){
         
     })
     .then(function(data){
-
+        spinner.style.display = "none"; //hide spinner
         //Display word title
         wordTitle.textContent = data[0].word;
 
@@ -92,6 +98,7 @@ form.addEventListener("submit", function(e){
         results.style.display = "block";
     })
     .catch(function(){
-    errorMessage.innerHTML = "Word not found. Please check your spelling or <a href='https://www.google.com/search?q=" + wordInput.value.trim() + "+definition' target='_blank'>try the web</a>.";    });
+        spinner.style.display = "none"; //hide spinner
+        errorMessage.innerHTML = "Word not found. Please check your spelling or <a href='https://www.google.com/search?q=" + wordInput.value.trim() + "+definition' target='_blank'>try the web</a>.";    });
 });
 });
